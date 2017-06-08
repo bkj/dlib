@@ -572,6 +572,7 @@ namespace dlib
             unsigned long max_pyramid_levels
         )
         {
+            // deserialize("feats") >> feats;
             unsigned long levels = 0;
             rectangle rect = get_rect(img);
 
@@ -587,9 +588,7 @@ namespace dlib
             if (feats.max_size() < levels)
                 feats.set_max_size(levels);
             feats.set_size(levels);
-
-
-
+            
             // build our feature pyramid
             fe(img, feats[0], cell_size,filter_rows_padding,filter_cols_padding);
             DLIB_ASSERT(feats[0].size() == fe.get_num_planes(), 
@@ -611,6 +610,8 @@ namespace dlib
                     swap(temp1,temp2);
                 }
             }
+            
+            // serialize("feats") << feats;            
         }
     }
 
