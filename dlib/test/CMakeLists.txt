@@ -125,7 +125,6 @@ set (tests
    set.cpp
    sldf.cpp
    sliding_buffer.cpp
-   smart_pointers.cpp
    sockets2.cpp
    sockets.cpp
    sockstreambuf.cpp
@@ -174,7 +173,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 
-TARGET_LINK_LIBRARIES(${target_name} dlib )
+TARGET_LINK_LIBRARIES(${target_name} dlib::dlib )
 
 
 if (NOT DLIB_NO_GUI_SUPPORT)
