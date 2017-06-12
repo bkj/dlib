@@ -20,6 +20,7 @@ void bind_shape_predictors();
 void bind_correlation_tracker();
 void bind_face_recognition();
 void bind_face_detection();
+void bind_face_detection();
 
 
 #ifndef DLIB_NO_GUI_SUPPORT
