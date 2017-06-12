@@ -30,30 +30,32 @@ public:
         deserialize(model_filename) >> net;
     }
 
-    std::vector<dlib::rectangle> detect (
-        object pyimage
+    boost::python::tuple detect (
+        object pyimage,
         const int upsample_num_times
     )
     {
         if (!is_rgb_python_image(pyimage)) {
             throw dlib::error("Unsupported image type, must be RGB image.");
         }
+
+        matrix<rgb_pixel> img;
+        assign_image(img, numpy_rgb_image(pyimage));
         
         unsigned int levels = upsample_num_times;
         while (levels > 0) {
             levels--;
-            pyramid_up(pyimage);
+            pyramid_up(img);
         }
-
-        matrix<rgb_pixel> img;
-        assign_image(img, numpy_rgb_image(pyimage));
                 
-        std::vector<dlib::rectangle> rects;
+        std::vector<dlib::rectangle> rectangles;
+        std::vector<double> detection_confidences;
         for (auto& d : net(img)) {
-            rects.push_back(d.rect);
+            rectangles.push_back(d.rect);
+            detection_confidences.push_back(d.detection_confidence);
         }
         
-        return rects;
+        return boost::python::make_tuple(rectangles, detection_confidences);
     }
 
 private:
