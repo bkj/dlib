@@ -27,6 +27,7 @@ set(python_srcs
    src/correlation_tracker.cpp
    src/face_recognition.cpp
    src/face_detection.cpp
+   # src/face_pipeline.cpp
 )
 
 # Only add the GUI module if requested
