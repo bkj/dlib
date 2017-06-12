@@ -26,6 +26,7 @@ set(python_srcs
    src/shape_predictor.cpp
    src/correlation_tracker.cpp
    src/face_recognition.cpp
+   src/face_detection.cpp
 )
 
 # Only add the GUI module if requested
