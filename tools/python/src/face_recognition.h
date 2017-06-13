@@ -23,41 +23,41 @@ public:
     face_recognition_model_v1(const std::string& model_filename);
     
     std::vector<matrix<double,0,1>> compute_batch_face_descriptors (
-        boost::python::list pyimages,
-        boost::python::list all_pyfaces,
-        const int num_jitters
+        boost::python::list,
+        boost::python::list,
+        const int
     );
     
     std::vector<matrix<double,0,1>> _compute_batch_face_descriptors (
-        std::vector<object> pyimages,
-        const std::vector<std::vector<full_object_detection>>& all_faces,
-        const int num_jitters
+        std::vector<object>,
+        const std::vector<std::vector<full_object_detection>>&,
+        const int
     );
 
     matrix<double,0,1> compute_face_descriptor (
-        object img,
-        const full_object_detection& face,
-        const int num_jitters
+        object,
+        const full_object_detection&,
+        const int
     );
 
     std::vector<matrix<double,0,1>> compute_face_descriptors (
-        object img,
-        const std::vector<full_object_detection>& faces,
-        const int num_jitters
+        object,
+        const std::vector<full_object_detection>&,
+        const int
     );
 
+    std::vector<matrix<double,0,1>> describe_chips (
+        const dlib::array<matrix<rgb_pixel>>&,
+        const int
+    );
+    
 private:
 
     std::shared_ptr<random_cropper> cropper;
 
     std::vector<matrix<rgb_pixel>> jitter_image(
-        const matrix<rgb_pixel>& img,
-        const int num_jitters
-    );
-
-    std::vector<matrix<double,0,1>> describe_chips (
-        const dlib::array<matrix<rgb_pixel>>& face_chips,
-        const int num_jitters
+        const matrix<rgb_pixel>&,
+        const int
     );
 
     template <template <int,template<typename>class,int,typename> class block, int N, template<typename>class BN, typename SUBNET>

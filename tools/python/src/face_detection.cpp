@@ -86,6 +86,5 @@ void bind_face_detection()
     class_<face_detection_model_v1>("face_detection_model_v1", "face detection", init<std::string>())
         .def("__call__", &face_detection_model_v1::detect_single, (arg("img"), arg("upsample_num_times")=0), "face detection")
         .def("__call__", &face_detection_model_v1::detect_multi, (arg("imgs"), arg("upsample_num_times")=0), "face detection (multiple)");
-        
     }
 }
