@@ -339,18 +339,18 @@ if (NOT TARGET dlib)
 
       if (DLIB_PNG_SUPPORT)
          # try to find libpng 
-         find_package(PNG QUIET)
-         # Make sure there isn't something wrong with the version of LIBPNG
-         # installed on this system.  
-         if (PNG_FOUND)
-            set(CMAKE_REQUIRED_LIBRARIES ${PNG_LIBRARY})
-            CHECK_FUNCTION_EXISTS(png_create_read_struct LIBPNG_IS_GOOD)
-         endif()
-         if (PNG_FOUND AND LIBPNG_IS_GOOD)
-            include_directories(${PNG_INCLUDE_DIR})
-            set (dlib_needed_libraries ${dlib_needed_libraries} ${PNG_LIBRARY})
-            set(REQUIRES_LIBS " libpng")
-         else()
+         # find_package(PNG QUIET)
+         # # Make sure there isn't something wrong with the version of LIBPNG
+         # # installed on this system.  
+         # if (PNG_FOUND)
+         #    set(CMAKE_REQUIRED_LIBRARIES ${PNG_LIBRARY})
+         #    CHECK_FUNCTION_EXISTS(png_create_read_struct LIBPNG_IS_GOOD)
+         # endif()
+         # if (PNG_FOUND AND LIBPNG_IS_GOOD)
+         #    include_directories(${PNG_INCLUDE_DIR})
+         #    set (dlib_needed_libraries ${dlib_needed_libraries} ${PNG_LIBRARY})
+         #    set(REQUIRES_LIBS " libpng")
+         # else()
             # If we can't find libpng then statically compile it in.
             include_directories(external/libpng external/zlib)
             set(source_files ${source_files}
@@ -395,7 +395,7 @@ if (NOT TARGET dlib)
                set_source_files_properties(external/libpng/arm/filter_neon.S PROPERTIES COMPILE_FLAGS "${CMAKE_ASM_FLAGS} ${CMAKE_CXX_FLAGS} -x assembler-with-cpp")
             endif()
             set(REQUIRES_LIBS "")
-         endif()
+         # endif()
          set(source_files ${source_files}
             image_loader/png_loader.cpp
             image_saver/save_png.cpp
@@ -404,18 +404,18 @@ if (NOT TARGET dlib)
 
       if (DLIB_JPEG_SUPPORT)
          # try to find libjpeg 
-         find_package(JPEG QUIET)
-         # Make sure there isn't something wrong with the version of libjpeg 
-         # installed on this system.  Also don't use the installed libjpeg
-         # if this is an APPLE system because apparently it's broken (as of 2015/01/01).
-         if (JPEG_FOUND)
-            set(CMAKE_REQUIRED_LIBRARIES ${JPEG_LIBRARY})
-            CHECK_FUNCTION_EXISTS(jpeg_read_header LIBJPEG_IS_GOOD)
-         endif()
-         if (JPEG_FOUND AND LIBJPEG_IS_GOOD AND NOT APPLE)
-            include_directories(${JPEG_INCLUDE_DIR})
-            set (dlib_needed_libraries ${dlib_needed_libraries} ${JPEG_LIBRARY})
-         else()
+         # find_package(JPEG QUIET)
+         # # Make sure there isn't something wrong with the version of libjpeg 
+         # # installed on this system.  Also don't use the installed libjpeg
+         # # if this is an APPLE system because apparently it's broken (as of 2015/01/01).
+         # if (JPEG_FOUND)
+         #    set(CMAKE_REQUIRED_LIBRARIES ${JPEG_LIBRARY})
+         #    CHECK_FUNCTION_EXISTS(jpeg_read_header LIBJPEG_IS_GOOD)
+         # endif()
+         # if (JPEG_FOUND AND LIBJPEG_IS_GOOD AND NOT APPLE)
+         #    include_directories(${JPEG_INCLUDE_DIR})
+         #    set (dlib_needed_libraries ${dlib_needed_libraries} ${JPEG_LIBRARY})
+         # else()
             # If we can't find libjpeg then statically compile it in.
             add_definitions(-DDLIB_JPEG_STATIC)
             set(source_files ${source_files}
@@ -464,7 +464,7 @@ if (NOT TARGET dlib)
                   external/libjpeg/jfdctflt.cpp
                   external/libjpeg/jfdctfst.cpp
                   )
-         endif()
+         # endif()
          set(source_files ${source_files}
             image_loader/jpeg_loader.cpp
             image_saver/save_jpeg.cpp

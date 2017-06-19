@@ -129,9 +129,10 @@ std::vector<matrix<rgb_pixel>> face_recognition_model_v1::jitter_image(
     const int num_jitters
 )
 {
+    std::vector<matrix<rgb_pixel>> crops; 
+    
     std::vector<mmod_rect> raw_boxes(1), ignored_crop_boxes;
     raw_boxes[0] = shrink_rect(get_rect(img),3);
-    std::vector<matrix<rgb_pixel>> crops; 
 
     matrix<rgb_pixel> temp; 
     for (int i = 0; i < num_jitters; ++i)

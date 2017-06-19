@@ -28,6 +28,8 @@ set(python_srcs
    src/face_recognition.cpp
    src/face_detection.cpp
    src/face_pipeline.cpp
+   src/face_align.cpp
+   src/pychinese_whispers.cpp
 )
 
 # Only add the GUI module if requested

@@ -20,7 +20,7 @@
 */
 
 #include <dlib/dnn.h>
-#include <dlib/gui_widgets.h>
+// #include <dlib/gui_widgets.h>
 #include <dlib/clustering.h>
 #include <dlib/string.h>
 #include <dlib/image_io.h>
@@ -106,22 +106,23 @@ int main(int argc, char** argv) try
 
     matrix<rgb_pixel> img;
     load_image(img, argv[1]);
-    // Display the raw image on the screen
-    image_window win(img); 
 
     // Run the face detector on the image of our action heroes, and for each face extract a
     // copy that has been normalized to 150x150 pixels in size and appropriately rotated
     // and centered.
     std::vector<matrix<rgb_pixel>> faces;
+    int counter = 0;
     for (auto face : detector(img))
     {
         auto shape = sp(img, face);
         matrix<rgb_pixel> face_chip;
         extract_image_chip(img, get_face_chip_details(shape,150,0.25), face_chip);
+        
+        save_jpeg(face_chip, "./tmp-" + std::to_string(counter) + ".jpg");
+        
         faces.push_back(move(face_chip));
-        // Also put some boxes on the faces so we can see that the detector is finding
-        // them.
-        win.add_overlay(face);
+        
+        ++counter;
     }
 
     if (faces.size() == 0)
@@ -159,20 +160,20 @@ int main(int argc, char** argv) try
     cout << "number of people found in the image: "<< num_clusters << endl;
 
 
-    // Now let's display the face clustering results on the screen.  You will see that it
-    // correctly grouped all the faces. 
-    std::vector<image_window> win_clusters(num_clusters);
-    for (size_t cluster_id = 0; cluster_id < num_clusters; ++cluster_id)
-    {
-        std::vector<matrix<rgb_pixel>> temp;
-        for (size_t j = 0; j < labels.size(); ++j)
-        {
-            if (cluster_id == labels[j])
-                temp.push_back(faces[j]);
-        }
-        win_clusters[cluster_id].set_title("face cluster " + cast_to_string(cluster_id));
-        win_clusters[cluster_id].set_image(tile_images(temp));
-    }
+    // // Now let's display the face clustering results on the screen.  You will see that it
+    // // correctly grouped all the faces. 
+    // std::vector<image_window> win_clusters(num_clusters);
+    // for (size_t cluster_id = 0; cluster_id < num_clusters; ++cluster_id)
+    // {
+    //     std::vector<matrix<rgb_pixel>> temp;
+    //     for (size_t j = 0; j < labels.size(); ++j)
+    //     {
+    //         if (cluster_id == labels[j])
+    //             temp.push_back(faces[j]);
+    //     }
+    //     win_clusters[cluster_id].set_title("face cluster " + cast_to_string(cluster_id));
+    //     win_clusters[cluster_id].set_image(tile_images(temp));
+    // }
 
 
 

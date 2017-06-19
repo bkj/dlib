@@ -272,7 +272,7 @@ int main(int argc, char** argv)
 
     // Save the network to disk
     net.clean();
-    serialize("metric_network_renset.dat") << net;
+    serialize("metric_network_resnet.dat") << net;
 
     // stop all the data loading threads and wait for them to terminate.
     qimages.disable();

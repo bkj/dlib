@@ -21,6 +21,8 @@ void bind_correlation_tracker();
 void bind_face_recognition();
 void bind_face_detection();
 void bind_face_pipeline();
+void bind_face_align();
+void bind_pychinese_whispers();
 
 #ifndef DLIB_NO_GUI_SUPPORT
 void bind_gui();
@@ -55,6 +57,8 @@ BOOST_PYTHON_MODULE(dlib)
     bind_face_recognition();
     bind_face_detection();
     bind_face_pipeline();
+    bind_face_align();
+    bind_pychinese_whispers();
 #ifndef DLIB_NO_GUI_SUPPORT
     bind_gui();
 #endif
