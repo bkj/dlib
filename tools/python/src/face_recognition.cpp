@@ -83,7 +83,7 @@ std::vector<matrix<double,0,1>> face_recognition_model_v1::_compute_batch_face_d
         }
     }
     
-    return describe_chips(all_face_chips, num_jitters);
+    return _describe_chips(all_face_chips, num_jitters);
 }
 
 matrix<double,0,1> face_recognition_model_v1::compute_face_descriptor (
@@ -120,7 +120,7 @@ std::vector<matrix<double,0,1>> face_recognition_model_v1::compute_face_descript
     dlib::array<matrix<rgb_pixel>> face_chips;
     extract_image_chips(numpy_rgb_image(img), dets, face_chips);
     
-    return describe_chips(face_chips, num_jitters);
+    return _describe_chips(face_chips, num_jitters);
 }
 
 // Private
@@ -144,6 +144,22 @@ std::vector<matrix<rgb_pixel>> face_recognition_model_v1::jitter_image(
 }
 
 std::vector<matrix<double,0,1>> face_recognition_model_v1::describe_chips (
+    boost::python::list pyface_chips,
+    const int num_jitters
+)
+{   
+    dlib::array<matrix<rgb_pixel>> face_chips;
+    for(auto pyface_chip : python_list_to_vector<object>(pyface_chips))
+    {
+        matrix<rgb_pixel> face_chip;
+        assign_image(face_chip, numpy_rgb_image(pyface_chip));
+        face_chips.push_back(face_chip);
+    }
+    return _describe_chips(face_chips, num_jitters);   
+}
+
+
+std::vector<matrix<double,0,1>> face_recognition_model_v1::_describe_chips (
     const dlib::array<matrix<rgb_pixel>>& face_chips,
     const int num_jitters
 )
@@ -182,7 +198,11 @@ void bind_face_recognition()
             )
         .def("compute_batch_face_descriptors", &face_recognition_model_v1::compute_batch_face_descriptors, (arg("imgs"),arg("faces"),arg("num_jitters")=0),
             "batched faces"
+        )
+        .def("describe_chips", &face_recognition_model_v1::describe_chips, (arg("imgs"),arg("num_jitters")=0),
+            "batched faces"
         );
+
     }
 
     {

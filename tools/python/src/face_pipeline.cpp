@@ -124,7 +124,7 @@ std::vector<boost::python::tuple> face_pipeline_v1::_run(
     }
     
     // Run model 
-    std::vector<matrix<double,0,1>> all_feats = rec.describe_chips(all_face_chips, num_jitters);
+    std::vector<matrix<double,0,1>> all_feats = rec._describe_chips(all_face_chips, num_jitters);
     
     std::vector<boost::python::tuple> output;
     for(int i = 0; i < imgs.size(); ++i) {

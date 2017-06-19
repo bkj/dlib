@@ -47,6 +47,11 @@ public:
     );
 
     std::vector<matrix<double,0,1>> describe_chips (
+        boost::python::list,
+        const int
+    );
+
+    std::vector<matrix<double,0,1>> _describe_chips (
         const dlib::array<matrix<rgb_pixel>>&,
         const int
     );

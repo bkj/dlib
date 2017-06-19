@@ -103,7 +103,8 @@ int main(int argc, char** argv) try
     // And finally we load the DNN responsible for face recognition.
     anet_type net;
     deserialize("dlib_face_recognition_resnet_model_v1.dat") >> net;
-
+    // net_to_xml(net, "dlib_face_recognition_resnet_model_v1.xml");
+    
     matrix<rgb_pixel> img;
     load_image(img, argv[1]);
 
@@ -117,8 +118,6 @@ int main(int argc, char** argv) try
         auto shape = sp(img, face);
         matrix<rgb_pixel> face_chip;
         extract_image_chip(img, get_face_chip_details(shape,150,0.25), face_chip);
-        
-        save_jpeg(face_chip, "./tmp-" + std::to_string(counter) + ".jpg");
         
         faces.push_back(move(face_chip));
         
